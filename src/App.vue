@@ -30,7 +30,6 @@ import { Button } from './components/ui/button'
           </svg>
         </RouterLink>
       </nav>
-      <Button>Button</Button>
     </div>
   </header>
 
