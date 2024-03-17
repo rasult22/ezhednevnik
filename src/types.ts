@@ -17,9 +17,25 @@ export type diary_day = {
   month_goals: limited_goal
   '20_goals': limited_goal
   '80_goals': goal[]
-  gratitudes: string[]
+  gratitudes: {
+    1: {
+      text: string
+    }
+    2: {
+      text: string
+    }
+    3: {
+      text: string
+    }
+    4: {
+      text: string
+    }
+    5: {
+      text: string
+    }
+  }
   money: string
-  user: user
+  user: string
 }
 
 export type user = {

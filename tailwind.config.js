@@ -12,6 +12,7 @@ module.exports = {
   prefix: '',
   theme: {
     fontFamily: {
+      Ubuntu: ['Ubuntu', 'sans-serif'],
       Virgil: ['Virgil', 'sans-serif']
     },
     container: {

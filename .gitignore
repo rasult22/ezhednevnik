@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 coverage
+pk.p8
 *.local
 
 /cypress/videos/
