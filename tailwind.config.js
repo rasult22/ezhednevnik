@@ -23,6 +23,11 @@ module.exports = {
       }
     },
     extend: {
+      spacing: {
+        'inset-top': 'var(--inset-top)',
+        'inset-top-expand': 'var(--inset-top-expand)',
+        'inset-bottom': 'var(--inset-bottom)'
+      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },

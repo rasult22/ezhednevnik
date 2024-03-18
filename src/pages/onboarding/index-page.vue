@@ -1,9 +1,28 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { usePB } from '@/composables/usePB'
+import { createDaysInDB } from '@/modules/module-diary-day/initData'
+import { signInWithApple, redirectURI } from '@/utils/oauth'
+import { useRouter } from 'vue-router'
 const { pb } = usePB()
-const onAppleAuth = () => {
-  pb.collection('users').authWithOAuth2Code('apple', 'CODE', 'codeVerifier', 'redirectUrl')
+const router = useRouter()
+const onAppleAuth = async () => {
+  const results = await signInWithApple()
+  if (results?.response) {
+    const user = await pb
+      .collection('users')
+      .authWithOAuth2Code(
+        'apple',
+        results.response.authorizationCode,
+        results.response.identityToken,
+        redirectURI
+      )
+    localStorage.setItem('token', user.token)
+    localStorage.setItem('user', user.record.id)
+    await createDaysInDB(user.record.id)
+    localStorage.setItem('days_created', 'true')
+    router.replace('/')
+  }
 }
 </script>
 <template>
@@ -25,7 +44,7 @@ const onAppleAuth = () => {
       </p>
       <p>Желаем вам удачи в освоении исскуства сосредоточения на главном! 🙌</p>
     </div>
-    <div class="flex justify-center pt-5">Для начала работы выберите метод авторизации:</div>
+    <div class="flex justify-center pt-5">Для начала работы выберите способ авторизации:</div>
     <div class="flex flex-col space-y-2 py-4">
       <Button @click="onAppleAuth">Войти с помощью Apple</Button>
       <Button>Войти с помощью Google</Button>
