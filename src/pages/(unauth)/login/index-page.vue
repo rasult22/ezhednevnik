@@ -6,13 +6,14 @@ import { useUserStore } from '@/stores/user'
 import type { user } from '@/types'
 const { pb } = usePB()
 const userStore = useUserStore()
-let username = ref('rasult22')
-let password = ref('Liverpool')
+let username = ref('rasult222')
+let password = ref('12345678')
 
 const onSumbit = async (e: Event) => {
   const authData = await pb.collection('users').authWithPassword(username.value, password.value)
   console.log(authData)
   userStore.user = authData.record as user
+  localStorage.setItem('user', authData.record.id)
   localStorage.setItem('token', authData.token)
 }
 </script>

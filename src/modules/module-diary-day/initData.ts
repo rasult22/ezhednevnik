@@ -1,5 +1,5 @@
+// https://github.com/pocketbase/pocketbase/discussions/1411
 import { usePB } from '@/composables/usePB'
-
 export let initData = {
   money: '',
   gratitudes: {
@@ -79,6 +79,7 @@ export let initData = {
     }
   ]
 }
+
 export type Record = {
   month_goals: any
   '20_goals': any
@@ -88,40 +89,12 @@ export type Record = {
   user: string
   date_str: string
 }
-export function createDaysInDB(user_id: string) {
-  const date_strs = getDateStringsForYear(new Date().getFullYear())
-  const records = date_strs.map((date_str) => {
-    return {
-      ...initData,
-      user: user_id,
-      date_str
-    }
-  })
+
+export const createTestDay = async (user_id: string) => {
   const { pb } = usePB()
-  const promises = records.map((record) => {
-    return pb.collection('diary_day').create(record, {
-      requestKey: null // disable auto canceling same requests
-    })
+  return await pb.collection('diary_day').create({
+    ...initData,
+    user: user_id,
+    date_str: '3/18/2024'
   })
-
-  return Promise.all(promises)
-}
-
-function isLeapYear(year: number) {
-  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
-}
-
-function getDateStringsForYear(year: number) {
-  const isLeap = isLeapYear(year)
-  const daysInFebruary = isLeap ? 29 : 28
-  const daysInMonths = [31, daysInFebruary, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-  const dateStrings = []
-  for (let month = 0; month < 12; month++) {
-    for (let day = 1; day <= daysInMonths[month]; day++) {
-      dateStrings.push(month + 1 + '/' + day + '/' + year)
-    }
-  }
-
-  return dateStrings
 }
