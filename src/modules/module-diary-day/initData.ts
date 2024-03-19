@@ -99,6 +99,7 @@ export const createTestDay = async (user_id: string) => {
   })
 }
 
+// createDays for current year, if it's not already created
 export const createDays = async () => {
   const { pb } = usePB()
   const year = `${new Date().getFullYear()}`
