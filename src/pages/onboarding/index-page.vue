@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
 import { usePB } from '@/composables/usePB'
-import { createDaysInDB } from '@/modules/module-diary-day/initData'
+import { createDays } from '@/modules/module-diary-day/initData'
 import { signInWithApple, redirectURI } from '@/utils/oauth'
 import { useRouter } from 'vue-router'
 const { pb } = usePB()
@@ -19,7 +19,7 @@ const onAppleAuth = async () => {
       )
     localStorage.setItem('token', user.token)
     localStorage.setItem('user', user.record.id)
-    await createDaysInDB(user.record.id)
+    await createDays()
     localStorage.setItem('days_created', 'true')
     router.replace('/')
   }

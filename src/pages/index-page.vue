@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
-import { createDaysInDB } from '@/modules/module-diary-day/initData'
+import { usePB } from '@/composables/usePB'
+import { createTestDay, createDays } from '@/modules/module-diary-day/initData'
 import ModuleDiaryDay from '@/modules/module-diary-day/module-diary-day.vue'
 
 import { ref } from 'vue'
-let days_created = localStorage.getItem('days_created')
+let days_created = ref(localStorage.getItem('days_created'))
 const isLoaded = ref(false)
-
-const createDays = () => {
-  // createDaysInDB
+const user = localStorage.getItem('user') || ''
+const { pb } = usePB()
+const createDaysInDB = async () => {
+  createDays().then(() => {
+    localStorage.setItem('days_created', 'true')
+    days_created.value = 'true'
+  })
 }
 </script>
 <template>
@@ -23,9 +28,9 @@ const createDays = () => {
       </nav>
     </div>
   </header>
-  <ModuleDiaryDay v-if="!days_created" />
+  <ModuleDiaryDay v-if="days_created" />
   <div class="flex h-[70vh] items-center justify-center" v-else>
-    <Button @click="createDays"> Загрузить дневник текущего года </Button>
+    <Button @click="createDaysInDB"> Загрузить дневник текущего года </Button>
   </div>
   <div>
     <div>

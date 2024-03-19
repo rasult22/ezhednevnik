@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 
-routerAdd('POST', '/hello', (c) => {
+routerAdd('POST', '/custom/create-days', (c) => {
   const shared = require(`${__hooks}/shared.js`)
   const user = c.get('authRecord')
   const requestData = $apis.requestInfo(c).data
@@ -28,7 +28,7 @@ routerAdd('POST', '/hello', (c) => {
   const days = shared.getDiaryDays(requestData.year, user.id)
 
   // create 365 days in the collection
-  days.forEach((d) => {
+  days.forEach((d, index) => {
     const collection = $app.dao().findCollectionByNameOrId('diary_day')
     const record = new Record(collection, d)
     $app.dao().saveRecord(record)
@@ -36,15 +36,15 @@ routerAdd('POST', '/hello', (c) => {
   // add current year record, for future validation (year_taken_by_user)
   const yearCollection = $app.dao().findCollectionByNameOrId('diary_years_created')
   const yearRecord = new Record(yearCollection, {
-    year: requestInfo.data.year,
+    year: requestData.year,
     user: user.id
   })
   $app.dao().saveRecord(yearRecord)
 
   return c.json(200, {
-    msg: '365 days created for ' + requestInfo.data.year,
+    msg: '365 days created for ' + requestData.year,
     message: c.get('authRecord'),
-    r: requestInfo,
+    r: requestData,
     year_exist,
     user,
     year_taken_by_user

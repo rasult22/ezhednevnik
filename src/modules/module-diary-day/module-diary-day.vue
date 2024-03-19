@@ -8,7 +8,7 @@ import { useDebounceFn } from '@vueuse/core'
 
 const { pb } = usePB()
 let date = new Date()
-let date_str = '3/17/2024' || `${date.toLocaleDateString()}`
+let date_str = `${date.toLocaleDateString('en-US')}`
 let current_day_exists = false
 let current_day = ref<diary_day>()
 

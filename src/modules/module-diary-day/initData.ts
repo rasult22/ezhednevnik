@@ -98,3 +98,24 @@ export const createTestDay = async (user_id: string) => {
     date_str: '3/18/2024'
   })
 }
+
+export const createDays = async () => {
+  const { pb } = usePB()
+  const year = `${new Date().getFullYear()}`
+  const user = localStorage.getItem('user')
+  let year_exist = false
+  if (user) {
+    try {
+      await pb.collection('diary_years_created').getFirstListItem(`year = "${year}"`)
+      year_exist = true
+    } catch {}
+  }
+  if (!year_exist) {
+    return pb.send('/custom/create-days', {
+      method: 'POST',
+      body: JSON.stringify({
+        year
+      })
+    })
+  }
+}
