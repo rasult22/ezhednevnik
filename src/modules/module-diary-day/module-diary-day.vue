@@ -7,20 +7,24 @@ import { usePB } from '@/composables/usePB'
 import { useDebounceFn } from '@vueuse/core'
 import { useDiaryStore } from '@/stores/diary'
 import { useQuery } from '@tanstack/vue-query'
+import { useQueryClient } from '@tanstack/vue-query'
+const queryClient = useQueryClient()
 const { pb } = usePB()
 const diaryStore = useDiaryStore()
 let current_day = ref<diary_day>()
 
-const { data } = useQuery({
-  queryKey: [diaryStore.current_date],
+const { data, isLoading, isError, error, status, isFetching } = useQuery({
+  queryKey: ['current_date'],
   queryFn: async () => {
     console.log('do request ' + diaryStore.current_date)
-    return await pb
+    const result = await pb
       .collection('diary_day')
       .getFirstListItem(`date_str ~ "${diaryStore.current_date}"`)
+    return result
   }
 })
-watch(data, () => {
+
+watch([data, error, isError], () => {
   if (data.value) {
     current_day.value = JSON.parse(JSON.stringify(data.value)) as diary_day
     gratitude.value = current_day.value.gratitudes
@@ -28,6 +32,18 @@ watch(data, () => {
     month_goals.value = current_day.value.month_goals
     _20_goals.value = current_day.value['20_goals']
     _80_goals.value = current_day.value['80_goals']
+  }
+  if (isError.value) {
+    if (error.value?.name) {
+      const err_status = error.value.name.split(' ')
+      if (err_status[1] && err_status[1] === '404') {
+        // Это значит что запись не существуюет:
+        // 2 варианта:
+        // 1. Это баг!
+        // 2. Это новый год!
+        // Во втором случае надо вызвать создание дней для нового года
+      }
+    }
   }
 })
 
@@ -136,8 +152,14 @@ const mapNum = {
 }
 </script>
 <template>
-  <div class="">
+  <div class="relative">
     {{ diaryStore.current_date }}
+    <div
+      class="fixed top-0 z-10 bg-white bg-opacity-[0.5] flex items-center justify-center w-full h-full"
+      v-if="isFetching"
+    >
+      Загрузка...
+    </div>
     <div class="py-4 border-b">
       <div class="text-[17px] font-medium text-center mb-4 font-Virgil">Главное на месяц</div>
       <div class="px-4 space-y-2">
