@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import type { diary_day, goal, limited_goal, user } from '@/types'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue'
 import Input from '@/components/ui/input/Input.vue'
 import { usePB } from '@/composables/usePB'
 import { useDebounceFn } from '@vueuse/core'
-
+import { useDiaryStore } from '@/stores/diary'
+import { useQuery } from '@tanstack/vue-query'
 const { pb } = usePB()
-let date = new Date()
-let date_str = `${date.toLocaleDateString('en-US')}`
-let current_day_exists = false
+const diaryStore = useDiaryStore()
 let current_day = ref<diary_day>()
 
-onMounted(async () => {
-  const data = await pb.collection('diary_day').getFirstListItem(`date_str ~ "${date_str}"`)
-  if (data) {
-    current_day.value = data as diary_day
-
+const { data } = useQuery({
+  queryKey: [diaryStore.current_date],
+  queryFn: async () => {
+    console.log('do request ' + diaryStore.current_date)
+    return await pb
+      .collection('diary_day')
+      .getFirstListItem(`date_str ~ "${diaryStore.current_date}"`)
+  }
+})
+watch(data, () => {
+  if (data.value) {
+    current_day.value = JSON.parse(JSON.stringify(data.value)) as diary_day
     gratitude.value = current_day.value.gratitudes
     money.value = current_day.value.money
     month_goals.value = current_day.value.month_goals
@@ -24,6 +30,7 @@ onMounted(async () => {
     _80_goals.value = current_day.value['80_goals']
   }
 })
+
 let money = ref('')
 let gratitude = ref({
   1: {
@@ -108,15 +115,17 @@ const saveDataToServer = useDebounceFn(async () => {
       '20_goals': _20_goals.value,
       '80_goals': _80_goals.value,
       money: money.value,
-      date: date_str,
+      date: diaryStore.current_date,
       month_goals: month_goals.value,
       gratitudes: gratitude.value
     }
+    const id = current_day.value.id
+    console.log(body)
 
-    await pb.collection('diary_day').update(current_day.value.id, body)
+    await pb.collection('diary_day').update(id, body)
   }
 }, 2000)
-const onInputBlur = () => {
+const onInputBlur = (e: FocusEvent) => {
   saveDataToServer()
 }
 
@@ -128,7 +137,7 @@ const mapNum = {
 </script>
 <template>
   <div class="">
-    {{ date_str }}
+    {{ diaryStore.current_date }}
     <div class="py-4 border-b">
       <div class="text-[17px] font-medium text-center mb-4 font-Virgil">Главное на месяц</div>
       <div class="px-4 space-y-2">

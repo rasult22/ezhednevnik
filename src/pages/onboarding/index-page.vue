@@ -6,6 +6,13 @@ import { signInWithApple, redirectURI } from '@/utils/oauth'
 import { useRouter } from 'vue-router'
 const { pb } = usePB()
 const router = useRouter()
+
+// 1. create account or sign in to existing
+// 2. set token and user to the storage
+// 3. create days for new account
+// 4. create days for exisiting account if there's no current year days
+// 5. set "days_created" to localstorage for future conditional logic.
+// 6. reroute to /
 const onAppleAuth = async () => {
   const results = await signInWithApple()
   if (results?.response) {
@@ -44,10 +51,15 @@ const onAppleAuth = async () => {
       </p>
       <p>Желаем вам удачи в освоении исскуства сосредоточения на главном! 🙌</p>
     </div>
-    <div class="flex justify-center pt-5">Для начала работы выберите способ авторизации:</div>
+    <!-- <div class="flex justify-center pt-5">Для начала работы выберите способ авторизации:</div> -->
     <div class="flex flex-col space-y-2 py-4">
-      <Button @click="onAppleAuth">Войти с помощью Apple</Button>
-      <Button>Войти с помощью Google</Button>
+      <Button @click="onAppleAuth">
+        <div class="flex items-center space-x-2">
+          <img src="/apple.svg" alt="" />
+          <span> Войти с помощью Apple </span>
+        </div>
+      </Button>
+      <!-- <Button>Войти с помощью Google</Button> -->
     </div>
   </div>
 </template>

@@ -13,7 +13,7 @@ module.exports = {
   theme: {
     fontFamily: {
       Ubuntu: ['Ubuntu', 'sans-serif'],
-      Virgil: ['Virgil', 'sans-serif']
+      Virgil: ['Ubuntu', 'sans-serif']
     },
     container: {
       center: true,
