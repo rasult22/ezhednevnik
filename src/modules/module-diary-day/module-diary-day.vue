@@ -155,7 +155,7 @@ const mapNum = {
   <div class="relative">
     {{ diaryStore.current_date }}
     <div
-      class="fixed top-0 z-10 bg-white bg-opacity-[0.5] flex items-center justify-center w-full h-full"
+      class="fixed top-0 z-10 bg-white bg-opacity-[0.4] transition-opacity flex items-center justify-center w-full h-full"
       v-if="isFetching"
     >
       Загрузка...

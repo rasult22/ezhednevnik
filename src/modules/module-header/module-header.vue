@@ -11,6 +11,17 @@ const currentYear = new Date().getFullYear()
 let open = ref(false)
 const queryClient = useQueryClient()
 
+const moveDate = (direction: 'next' | 'prev') => {
+  let currentDate = new Date(diaryStore.current_date)
+  if (direction === 'next') {
+    currentDate.setDate(currentDate.getDate() + 1)
+  } else {
+    currentDate.setDate(currentDate.getDate() - 1)
+  }
+  date.value = currentDate
+  diaryStore.current_date = currentDate.toLocaleDateString('en-US')
+}
+
 watch(date, () => {
   console.log()
   if (!date.value) return
@@ -30,7 +41,7 @@ watch(date, () => {
       <nav class="bg-[#141414] text-[#f1f1f1] border-b border-gray-400 p-4 flex justify-between">
         <div></div>
         <div class="flex space-x-2">
-          <img class="text-white" src="/arrow-left.svg" alt="" />
+          <img @click="() => moveDate('prev')" class="text-white" src="/arrow-left.svg" alt="" />
           <Popover :open="open">
             <PopoverTrigger @click="open = true">
               {{
@@ -53,7 +64,7 @@ watch(date, () => {
               />
             </PopoverContent>
           </Popover>
-          <img src="/arrow-right.svg" alt="" />
+          <img @click="() => moveDate('next')" src="/arrow-right.svg" alt="" />
         </div>
         <RouterLink to="/about">
           <img src="/settings.svg" alt="" />
