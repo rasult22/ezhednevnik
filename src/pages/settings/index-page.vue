@@ -1,0 +1,56 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+</script>
+
+<template>
+  <div>
+    <!-- HEADER -->
+    <div class="flex shadow-sm bg-[#141414] text-[#f1f1f1] p-4 justify-between">
+      <div @click="() => router.back()"><img src="/arrow-left.svg" alt="" /></div>
+      <div>Настройки</div>
+      <div class="opacity-0"><img src="/arrow-left.svg" alt="" /></div>
+    </div>
+    <div class="px-4 text-[14px] py-2 text-[#9F9F9F]">Управление целями</div>
+    <div>
+      <div
+        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+      >
+        <div>Цели на 10 лет</div>
+        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+      </div>
+      <div
+        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+      >
+        <div>
+          <div>Цели на 5 лет</div>
+          <div class="text-[12px] text-[#9F9F9F]">
+            Чего вам нужно достичь за 5 лет, чтобы достичь целей на 10 лет?
+          </div>
+        </div>
+        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+      </div>
+      <div
+        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+      >
+        <div>
+          <div>Цели на этот год</div>
+          <div class="text-[12px] text-[#9F9F9F]">
+            Чего вам нужно достичь за этот год, чтобы приблизиться к 5-летним целям?
+          </div>
+        </div>
+        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+      </div>
+      <div class="px-4 text-[14px] mt-4 pt-2 text-[#9F9F9F]">Управление аккаунтом</div>
+      <div
+        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+      >
+        <div>
+          <div>Удалить аккаунт</div>
+          <div class="text-[12px] text-[#9F9F9F]">Удалить аккаунт со всеми моими данными</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

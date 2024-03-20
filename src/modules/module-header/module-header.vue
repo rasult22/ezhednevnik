@@ -66,7 +66,7 @@ watch(date, () => {
           </Popover>
           <img @click="() => moveDate('next')" src="/arrow-right.svg" alt="" />
         </div>
-        <RouterLink to="/about">
+        <RouterLink to="/settings">
           <img src="/settings.svg" alt="" />
         </RouterLink>
       </nav>

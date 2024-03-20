@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '@/pages/index-page.vue'
 import OnboardingPage from '@/pages/onboarding/index-page.vue'
+import SettingsPage from '@/pages/settings/index-page.vue'
 import LoginPage from '@/pages/(unauth)/login/index-page.vue'
 
 const router = createRouter({
@@ -10,6 +11,11 @@ const router = createRouter({
       path: '/',
       name: 'main',
       component: MainPage
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsPage
     },
     {
       path: '/onboarding',
