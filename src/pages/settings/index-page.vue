@@ -15,24 +15,26 @@ const router = useRouter()
     <div class="px-4 text-[14px] py-2 text-[#9F9F9F]">Управление целями</div>
     <div>
       <div
-        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+        @click="() => router.push('/settings/long-term-goals')"
+        class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
       >
         <div>Цели на 10 лет</div>
-        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+        <div class="ml-auto pl-2"><img src="/arrow-right-black.svg" alt="" /></div>
       </div>
       <div
-        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+        class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
       >
-        <div>
+        <div @click="() => router.push('/settings/middle-term-goals')">
           <div>Цели на 5 лет</div>
           <div class="text-[12px] text-[#9F9F9F]">
             Чего вам нужно достичь за 5 лет, чтобы достичь целей на 10 лет?
           </div>
         </div>
-        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+        <div class="ml-auto pl-2"><img src="/arrow-right-black.svg" alt="" /></div>
       </div>
       <div
-        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+        @click="() => router.push('/settings/short-term-goals')"
+        class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
       >
         <div>
           <div>Цели на этот год</div>
@@ -40,11 +42,11 @@ const router = useRouter()
             Чего вам нужно достичь за этот год, чтобы приблизиться к 5-летним целям?
           </div>
         </div>
-        <div class="ml-auto"><img src="/arrow-right-black.svg" alt="" /></div>
+        <div class="ml-auto pl-2"><img src="/arrow-right-black.svg" alt="" /></div>
       </div>
       <div class="px-4 text-[14px] mt-4 pt-2 text-[#9F9F9F]">Управление аккаунтом</div>
       <div
-        class="flex py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+        class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
       >
         <div>
           <div>Удалить аккаунт</div>
