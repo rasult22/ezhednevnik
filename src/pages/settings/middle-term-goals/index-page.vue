@@ -25,11 +25,21 @@ onMounted(() => {
             type: 'middle',
             user: user,
             value: {
-              1: '',
-              2: '',
-              3: '',
-              4: '',
-              5: ''
+              1: {
+                text: ''
+              },
+              2: {
+                text: ''
+              },
+              3: {
+                text: ''
+              },
+              4: {
+                text: ''
+              },
+              5: {
+                text: ''
+              }
             }
           })
           .then((data) => {
@@ -40,15 +50,23 @@ onMounted(() => {
       }
     })
 })
-
 const goals = ref({
-  1: '',
-  2: '',
-  3: '',
-  4: '',
-  5: ''
+  1: {
+    text: ''
+  },
+  2: {
+    text: ''
+  },
+  3: {
+    text: ''
+  },
+  4: {
+    text: ''
+  },
+  5: {
+    text: ''
+  }
 })
-
 const onSave = () => {
   if (user && goal_record.value.id) {
     pb.collection('general_goals')
@@ -79,7 +97,7 @@ const onSave = () => {
       <div class="space-y-2 pt-4">
         <div class="flex items-center space-x-2" v-for="(g, i) in goals" :key="i">
           <span class="font-medium">{{ i }}</span>
-          <Input placeholder="Ваша великая цель" v-model:model-value="goals[i]" type="text" />
+          <Input placeholder="Ваша великая цель" v-model:model-value="goals[i].text" type="text" />
         </div>
       </div>
       <div class="pt-5 flex justify-center">
