@@ -1,7 +1,33 @@
 <script setup lang="ts">
+import { usePB } from '@/composables/usePB'
 import { useRouter } from 'vue-router'
-
+const { pb } = usePB()
 const router = useRouter()
+
+const onLogout = () => {
+  const sure = confirm('Вы действительно хотите выйти из аккаунта?')
+  if (sure) {
+    pb.authStore.clear()
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('days_created')
+    router.replace('/onboarding')
+  }
+}
+const onDelete = () => {
+  const sure = confirm('Вы действительно хотите удалить аккаунт и все данные?')
+  if (sure) {
+    pb.send('/custom/delete-account', {
+      method: 'POST'
+    }).then(() => {
+      pb.authStore.clear()
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      localStorage.removeItem('days_created')
+      router.replace('/onboarding')
+    })
+  }
+}
 </script>
 
 <template>
@@ -46,11 +72,21 @@ const router = useRouter()
       </div>
       <div class="px-4 text-[14px] mt-4 pt-2 text-[#9F9F9F]">Управление аккаунтом</div>
       <div
+        @click="onDelete"
         class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
       >
         <div>
           <div>Удалить аккаунт</div>
           <div class="text-[12px] text-[#9F9F9F]">Удалить аккаунт со всеми моими данными</div>
+        </div>
+      </div>
+      <div
+        @click="onLogout"
+        class="flex items-center py-3 px-4 border-b shadow-sm active:opacity-[0.8] active:scale-[0.98] transition-all"
+      >
+        <div>
+          <div>Выйти</div>
+          <div class="text-[12px] text-[#9F9F9F]">Выйти из текущего аккаунта</div>
         </div>
       </div>
     </div>

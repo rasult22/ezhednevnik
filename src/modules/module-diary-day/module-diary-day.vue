@@ -8,6 +8,7 @@ import { useDebounceFn } from '@vueuse/core'
 import { useDiaryStore } from '@/stores/diary'
 import { useQuery } from '@tanstack/vue-query'
 import { useQueryClient } from '@tanstack/vue-query'
+import { createDays } from './initData'
 const queryClient = useQueryClient()
 const { pb } = usePB()
 const diaryStore = useDiaryStore()
@@ -37,6 +38,7 @@ watch([data, error, isError], () => {
     if (error.value?.name) {
       const err_status = error.value.name.split(' ')
       if (err_status[1] && err_status[1] === '404') {
+        createDays()
         // Это значит что запись не существуюет:
         // 2 варианта:
         // 1. Это баг!

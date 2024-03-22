@@ -2,7 +2,7 @@
 import { useDiaryStore } from '@/stores/diary'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
-import { ref, watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { useQueryClient } from '@tanstack/vue-query'
 
 const diaryStore = useDiaryStore()
@@ -42,7 +42,7 @@ watch(date, () => {
         <div></div>
         <div class="flex space-x-2">
           <img @click="() => moveDate('prev')" class="text-white" src="/arrow-left.svg" alt="" />
-          <Popover :open="open">
+          <Popover v-model:open="open">
             <PopoverTrigger @click="open = true">
               {{
                 date &&
@@ -58,6 +58,12 @@ watch(date, () => {
                 v-model="date"
                 @update:modelValue="
                   (val) => {
+                    if (!val) {
+                      nextTick(() => {
+                        date = new Date()
+                      })
+                      return
+                    }
                     open = false
                   }
                 "

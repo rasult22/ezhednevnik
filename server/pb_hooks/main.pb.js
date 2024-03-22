@@ -1,5 +1,45 @@
 /// <reference path="../pb_data/types.d.ts" />
 
+routerAdd('POST', '/custom/delete-account', (c) => {
+  const user = c.get('authRecord')
+
+  if (!user) {
+    return c.json(401, {
+      msg: 'User is not authenticated'
+    })
+  }
+
+  const diary_dayRecords = $app
+    .dao()
+    .findRecordsByFilter('diary_day', `user = "${user.id}"`, '-created')
+
+  diary_dayRecords.forEach((r, index) => {
+    $app.dao().deleteRecord(r)
+  })
+  const diary_years_created = $app
+    .dao()
+    .findRecordsByFilter('diary_years_created', `user = "${user.id}"`, '-created')
+
+  diary_years_created.forEach((r, index) => {
+    $app.dao().deleteRecord(r)
+  })
+
+  const general_goals = $app
+    .dao()
+    .findRecordsByFilter('general_goals', `user = "${user.id}"`, '-created')
+
+  general_goals.forEach((r, index) => {
+    $app.dao().deleteRecord(r)
+  })
+
+  const userRecord = $app.dao().findRecordById('users', user.id)
+  $app.dao().deleteRecord(userRecord)
+
+  return c.json(200, {
+    message: 'Account deleted'
+  })
+})
+
 routerAdd('POST', '/custom/create-days', (c) => {
   const shared = require(`${__hooks}/shared.js`)
   const user = c.get('authRecord')
