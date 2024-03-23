@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { usePB } from '@/composables/usePB'
 import { onMounted, ref, toRefs } from 'vue'
 import { useToast } from '@/components/ui/toast'
+import useAppLoader from '@/features/app-loading/useAppLoader'
 
 type GoalType = 'long' | 'middle' | 'short'
 type Props = {
@@ -17,7 +18,10 @@ const router = useRouter()
 const { pb } = usePB()
 const user = localStorage.getItem('user')
 let goal_record = ref()
+const { showLoading, hideLoading } = useAppLoader()
+
 onMounted(() => {
+  showLoading()
   pb.collection('general_goals')
     .getFirstListItem(`user = "${user}" && type = "${type.value}"`)
     .then((data) => {
@@ -57,6 +61,9 @@ onMounted(() => {
           })
       }
     })
+    .finally(() => {
+      hideLoading()
+    })
 })
 
 const goals = ref({
@@ -79,6 +86,7 @@ const goals = ref({
 
 const onSave = () => {
   if (user && goal_record.value.id) {
+    showLoading()
     pb.collection('general_goals')
       .update(goal_record.value.id, {
         type: type,
@@ -91,6 +99,9 @@ const onSave = () => {
           title: 'Успешно сохранено!',
           duration: 1000
         })
+      })
+      .finally(() => {
+        hideLoading()
       })
   }
 }

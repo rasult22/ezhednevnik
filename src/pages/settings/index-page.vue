@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { usePB } from '@/composables/usePB'
+import useAppLoader from '@/features/app-loading/useAppLoader'
 import { useRouter } from 'vue-router'
 const { pb } = usePB()
 const router = useRouter()
-
+const { showLoading, hideLoading } = useAppLoader()
 const onLogout = () => {
   const sure = confirm('Вы действительно хотите выйти из аккаунта?')
   if (sure) {
@@ -17,15 +18,20 @@ const onLogout = () => {
 const onDelete = () => {
   const sure = confirm('Вы действительно хотите удалить аккаунт и все данные?')
   if (sure) {
+    showLoading()
     pb.send('/custom/delete-account', {
       method: 'POST'
-    }).then(() => {
-      pb.authStore.clear()
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      localStorage.removeItem('days_created')
-      router.replace('/onboarding')
     })
+      .then(() => {
+        pb.authStore.clear()
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.removeItem('days_created')
+        router.replace('/onboarding')
+      })
+      .finally(() => {
+        hideLoading()
+      })
   }
 }
 </script>
