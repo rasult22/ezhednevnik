@@ -112,11 +112,21 @@ export const createDays = async () => {
     } catch {}
   }
   if (!year_exist) {
-    return pb.send('/custom/create-days', {
-      method: 'POST',
-      body: JSON.stringify({
-        year
+    return pb
+      .send('/custom/create-days', {
+        method: 'POST',
+        body: JSON.stringify({
+          year
+        })
       })
-    })
+      .catch((e) => {
+        if (typeof e.message === 'string') {
+          if (e.status === 401) {
+            pb.authStore.clear()
+            localStorage.removeItem('token')
+            window.location.reload()
+          }
+        }
+      })
   }
 }

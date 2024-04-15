@@ -25,30 +25,6 @@ const { data, isLoading, isError, error, status, isFetching } = useQuery({
   }
 })
 
-watch([data, error, isError], () => {
-  if (data.value) {
-    current_day.value = JSON.parse(JSON.stringify(data.value)) as diary_day
-    gratitude.value = current_day.value.gratitudes
-    money.value = current_day.value.money
-    month_goals.value = current_day.value.month_goals
-    _20_goals.value = current_day.value['20_goals']
-    _80_goals.value = current_day.value['80_goals']
-  }
-  if (isError.value) {
-    if (error.value?.name) {
-      const err_status = error.value.name.split(' ')
-      if (err_status[1] && err_status[1] === '404') {
-        createDays()
-        // Это значит что запись не существуюет:
-        // 2 варианта:
-        // 1. Это баг!
-        // 2. Это новый год!
-        // Во втором случае надо вызвать создание дней для нового года
-      }
-    }
-  }
-})
-
 let money = ref('')
 let gratitude = ref({
   1: {
@@ -126,6 +102,36 @@ let _80_goals = ref<goal[]>([
     done: false
   }
 ])
+
+watch(
+  [data, error, isError],
+  () => {
+    if (data.value) {
+      current_day.value = JSON.parse(JSON.stringify(data.value)) as diary_day
+      gratitude.value = current_day.value.gratitudes
+      money.value = current_day.value.money
+      month_goals.value = current_day.value.month_goals
+      _20_goals.value = current_day.value['20_goals']
+      _80_goals.value = current_day.value['80_goals']
+    }
+    if (isError.value) {
+      if (error.value?.name) {
+        const err_status = error.value.name.split(' ')
+        if (err_status[1] && err_status[1] === '404') {
+          createDays()
+          // Это значит что запись не существуюет:
+          // 2 варианта:
+          // 1. Это баг!
+          // 2. Это новый год!
+          // Во втором случае надо вызвать создание дней для нового года
+        }
+      }
+    }
+  },
+  {
+    immediate: true
+  }
+)
 
 const saveDataToServer = useDebounceFn(async () => {
   if (current_day.value) {

@@ -54,23 +54,28 @@ onMounted(() => {
           .create({
             type: type.value,
             user: user,
-            value: {
-              1: {
-                text: ''
+            value: [
+              {
+                index: 1,
+                value: ''
               },
-              2: {
-                text: ''
+              {
+                index: 2,
+                value: ''
               },
-              3: {
-                text: ''
+              {
+                index: 3,
+                value: ''
               },
-              4: {
-                text: ''
+              {
+                index: 4,
+                value: ''
               },
-              5: {
-                text: ''
+              {
+                index: 5,
+                value: ''
               }
-            }
+            ]
           })
           .then((data) => {
             console.log(data)
@@ -86,23 +91,28 @@ onMounted(() => {
     })
 })
 
-const goals = ref({
-  1: {
-    text: ''
+const goals = ref([
+  {
+    index: 1,
+    value: ''
   },
-  2: {
-    text: ''
+  {
+    index: 2,
+    value: ''
   },
-  3: {
-    text: ''
+  {
+    index: 3,
+    value: ''
   },
-  4: {
-    text: ''
+  {
+    index: 4,
+    value: ''
   },
-  5: {
-    text: ''
+  {
+    index: 5,
+    value: ''
   }
-})
+])
 
 const onSave = async () => {
   if (user && goal_record.value.id) {
@@ -133,11 +143,14 @@ const onSave = async () => {
 
 const sendGptRequest = async () => {
   let goal_str = ''
-  for (let key in goals.value) {
-    console.log(key)
-    goal_str += `\n ${key}. ${goals.value[key].text}`
-  }
-  console.log(goal_str)
+
+  const strs = goals.value.map((goal) => {
+    if (!goal.value) return ''
+    return `\n ${goal.index}. ${goal.value}`
+  })
+
+  goal_str = strs.join('')
+
   return await pb.send('/custom/gpt-answer', {
     method: 'POST',
     body: {
@@ -172,9 +185,9 @@ const sendGptRequest = async () => {
         </slot>
       </div>
       <div class="space-y-2 pt-4">
-        <div class="flex items-center space-x-2" v-for="(g, i) in goals" :key="i">
-          <span class="font-medium">{{ i }}</span>
-          <Input placeholder="Ваша великая цель" v-model:model-value="goals[i].text" type="text" />
+        <div class="flex items-center space-x-2" v-for="(val, key) in goals" :key="val.index">
+          <span class="font-medium">{{ val.index }}</span>
+          <Input placeholder="Ваша великая цель" v-model:model-value="val.value" type="text" />
         </div>
       </div>
       <div class="pt-5 flex justify-center flex-wrap">
