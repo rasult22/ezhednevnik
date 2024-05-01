@@ -156,7 +156,7 @@ routerAdd('POST', '/custom/gpt-answer', (c) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer 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'
+      Authorization: 'Bearer '
     },
     body: JSON.stringify({
       model: 'gpt-4-turbo',
