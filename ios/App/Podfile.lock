@@ -1,46 +1,46 @@
 PODS:
-  - Capacitor (5.7.3):
+  - Capacitor (5.7.4):
     - CapacitorCordova
   - CapacitorApp (5.0.7):
     - Capacitor
   - CapacitorCommunityAppleSignIn (5.0.0):
     - Capacitor
-  - CapacitorCordova (5.7.3)
+  - CapacitorCordova (5.7.4)
   - CapacitorDevice (5.0.7):
     - Capacitor
   - CapacitorPluginSafeArea (2.0.6):
     - Capacitor
 
 DEPENDENCIES:
-  - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@5.7.3_@capacitor+core@5.7.3/node_modules/@capacitor/ios`)"
-  - "CapacitorApp (from `../../node_modules/.pnpm/@capacitor+app@5.0.7_@capacitor+core@5.7.3/node_modules/@capacitor/app`)"
-  - "CapacitorCommunityAppleSignIn (from `../../node_modules/.pnpm/@capacitor-community+apple-sign-in@5.0.0_@capacitor+core@5.7.3/node_modules/@capacitor-community/apple-sign-in`)"
-  - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@5.7.3_@capacitor+core@5.7.3/node_modules/@capacitor/ios`)"
-  - "CapacitorDevice (from `../../node_modules/.pnpm/@capacitor+device@5.0.7_@capacitor+core@5.7.3/node_modules/@capacitor/device`)"
-  - "CapacitorPluginSafeArea (from `../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.7.3/node_modules/capacitor-plugin-safe-area`)"
+  - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@5.7.4_@capacitor+core@5.7.4/node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../node_modules/.pnpm/@capacitor+app@5.0.7_@capacitor+core@5.7.4/node_modules/@capacitor/app`)"
+  - "CapacitorCommunityAppleSignIn (from `../../node_modules/.pnpm/@capacitor-community+apple-sign-in@5.0.0_@capacitor+core@5.7.4/node_modules/@capacitor-community/apple-sign-in`)"
+  - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@5.7.4_@capacitor+core@5.7.4/node_modules/@capacitor/ios`)"
+  - "CapacitorDevice (from `../../node_modules/.pnpm/@capacitor+device@5.0.7_@capacitor+core@5.7.4/node_modules/@capacitor/device`)"
+  - "CapacitorPluginSafeArea (from `../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.7.4/node_modules/capacitor-plugin-safe-area`)"
 
 EXTERNAL SOURCES:
   Capacitor:
-    :path: "../../node_modules/.pnpm/@capacitor+ios@5.7.3_@capacitor+core@5.7.3/node_modules/@capacitor/ios"
+    :path: "../../node_modules/.pnpm/@capacitor+ios@5.7.4_@capacitor+core@5.7.4/node_modules/@capacitor/ios"
   CapacitorApp:
-    :path: "../../node_modules/.pnpm/@capacitor+app@5.0.7_@capacitor+core@5.7.3/node_modules/@capacitor/app"
+    :path: "../../node_modules/.pnpm/@capacitor+app@5.0.7_@capacitor+core@5.7.4/node_modules/@capacitor/app"
   CapacitorCommunityAppleSignIn:
-    :path: "../../node_modules/.pnpm/@capacitor-community+apple-sign-in@5.0.0_@capacitor+core@5.7.3/node_modules/@capacitor-community/apple-sign-in"
+    :path: "../../node_modules/.pnpm/@capacitor-community+apple-sign-in@5.0.0_@capacitor+core@5.7.4/node_modules/@capacitor-community/apple-sign-in"
   CapacitorCordova:
-    :path: "../../node_modules/.pnpm/@capacitor+ios@5.7.3_@capacitor+core@5.7.3/node_modules/@capacitor/ios"
+    :path: "../../node_modules/.pnpm/@capacitor+ios@5.7.4_@capacitor+core@5.7.4/node_modules/@capacitor/ios"
   CapacitorDevice:
-    :path: "../../node_modules/.pnpm/@capacitor+device@5.0.7_@capacitor+core@5.7.3/node_modules/@capacitor/device"
+    :path: "../../node_modules/.pnpm/@capacitor+device@5.0.7_@capacitor+core@5.7.4/node_modules/@capacitor/device"
   CapacitorPluginSafeArea:
-    :path: "../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.7.3/node_modules/capacitor-plugin-safe-area"
+    :path: "../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.7.4/node_modules/capacitor-plugin-safe-area"
 
 SPEC CHECKSUMS:
-  Capacitor: 7b5eb47c6125e9b58a3e3cd02fe366fc58adc89c
+  Capacitor: 4fe9adf012caceb4c71ffea2f1f4d005cdcbeea7
   CapacitorApp: 17fecd0e6cb23feafac7eb0939417389038b0979
   CapacitorCommunityAppleSignIn: eafdd59b18b38161fa5cceee7b0e31312b122958
-  CapacitorCordova: a377c52a28dbb3b895c0f71187f7b1777fee69db
+  CapacitorCordova: a6e87fccc0307dee7aec1560ec9398485f2b0ce7
   CapacitorDevice: fc91bdb484dc0e70755e9b621cd557afe642613a
   CapacitorPluginSafeArea: d55e4d4e70c98f611240f11dd80561438d0d70cb
 
-PODFILE CHECKSUM: 4694794e91a8dc64293147ef4414aa96a5aaf647
+PODFILE CHECKSUM: 74e2be8a0b04da682e19b14a28f30091b9d9dea0
 
 COCOAPODS: 1.15.2
